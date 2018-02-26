@@ -139,6 +139,8 @@ def main():
                 driver.process_rollback()
             elif text.lower().find('show tables') == 0:
                 driver.process_show_tables()
+            elif text.lower().find('show topology') == 0:
+                driver.process_show_topology()
             elif text.lower().find('describe') == 0:
                 items = text.split()
                 driver.process_describe(items[1])
