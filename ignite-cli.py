@@ -94,6 +94,19 @@ class IgniteDriver(object):
 
         self.output(data, header)
 
+    def process_show_topology(self):
+        url = 'http://' + self.host + ':8080/ignite?cmd=top&attr=true&mtr=true'
+        res = self.process_rest(url)
+        data = []
+        header = ('node_id', 'hostname', 'ip addresses')
+        for node in res['response']:
+            node_id = node['nodeId']
+            hostname = node['tcpHostNames']
+            tcp_addresses = node['tcpAddresses']
+            data.append((node_id, hostname, tcp_addresses))
+
+        self.output(data, header)
+
     def output(self, data, header):
         for l in formatter.format_output(data, header):
             print(l)
